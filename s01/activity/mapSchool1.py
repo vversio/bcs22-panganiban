@@ -1,70 +1,45 @@
 import heapq
 
-location = ["Home", "Store A", "Store B", "School", "Intersection"]
-
 path_list = [
-
-    [(1, 7), (2, 14), (4, 25)],
-
-    [(0, 7), (2, 5)],
-
-    [(3, 7)],
-
-    [(2, 7), (4, 7)],
-
-    [(3, 7)],
-
+    ("Home", "Store A", 7),
+    ("Home", "Store B", 14),
+    ("Home", "Intersection", 25),
+    ("Store A", "Home", 7),
+    ("Store A", "Store B", 5),
+    ("Store B", "School", 7),
+    ("School", "Intersection", 7),
+    ("Intersection", "School", 7)
 ]
 
-# Define the graph and distances
+def shortest_path(path_list, start, end):
+    distances = {point: float('inf') for point in set([item[0] for item in path_list] + [item[1] for item in path_list])}
+    distances[start] = 0
+    priority_queue = [(0, start)]
+    previous_vertices = {point: None for point in set([item[0] for item in path_list] + [item[1] for item in path_list])}
 
-graph = path_list
+    while priority_queue:
+        current_distance, current_vertex = heapq.heappop(priority_queue)
+        if current_distance > distances[current_vertex]:
+            continue
 
-distances = [float('inf')] * len(location)
+        for pointA, pointB, weight in path_list:
+            if pointA == current_vertex:
+                distance = current_distance + weight
+                if distance < distances[pointB]:
+                    distances[pointB] = distance
+                    heapq.heappush(priority_queue, (distance, pointB))
+                    previous_vertices[pointB] = current_vertex
 
-distances[0] = 0  # Starting node is Home (index 0)
+    shortest_path = []
+    while end:
+        shortest_path.insert(0, end)
+        end = previous_vertices[end]
 
-# Priority queue to keep track of nodes to visit
+    return distances, shortest_path
 
-priority_queue = [(0, 0)]
+point_a = "Home"
+point_b = "School"
+shortest_distances, shortest_path = shortest_path(path_list, point_a, point_b)
 
-# Keep track of the previous node for each location
-
-previous_nodes = [None] * len(location)
-
-while priority_queue:
-
-    dist, current_node = heapq.heappop(priority_queue)
-
-    if dist > distances[current_node]:
-        continue
-
-    for neighbor, edge_distance in graph[current_node]:
-
-        total_distance = dist + edge_distance
-
-        if total_distance < distances[neighbor]:
-            distances[neighbor] = total_distance
-
-            previous_nodes[neighbor] = current_node
-
-            heapq.heappush(priority_queue, (total_distance, neighbor))
-
-# Shortest distance from Home to School (index 3)
-
-shortest_distance = distances[3]
-
-print(f"The shortest distance from Home to School is: {shortest_distance}")
-
-# Construct the path from Home to School
-
-path = []
-
-current_location = 3  # School (index 3)
-
-while current_location is not None:
-    path.insert(0, current_location)
-
-    current_location = previous_nodes[current_location]
-
-print("The path from Home to School is:", [location[node] for node in path])
+print("Shortest Distance:", shortest_distances[point_b])
+print("Shortest Path:", shortest_path)
