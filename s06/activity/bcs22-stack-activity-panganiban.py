@@ -1,3 +1,5 @@
+import sys
+
 class TaskManager:
     def __init__(self):
         self.tasks = []
@@ -16,7 +18,7 @@ class TaskManager:
             self.tasks[task_index]["completed"] = True
             print("Task marked as completed.")
         else:
-            print("Invalid task index. Task not found.")
+            print("Invalid task Number! - Task not found.")
 
     def display_tasks(self):
         for index, task in enumerate(self.tasks):
@@ -37,7 +39,7 @@ class TaskManager:
                 self.display_tasks()
             elif choice == "4":
                 print("Exiting Task Manager.")
-                break
+                sys.exit()
             else:
                 print("Invalid choice. Please select a valid option.")
 
