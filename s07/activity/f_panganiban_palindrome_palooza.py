@@ -73,6 +73,11 @@ while True:
         s.palindrome_checker()
     elif option == 4:
         break
-'''
 
+'''
+Reflection:
+Developing the code presented a challenge as I needed to integrate the functionalities of push, display, and the palindrome checker 
+within the menu structure to ensure seamless interaction. Initially, I struggled to comprehend the workings of the palindrome checker. 
+Eventually, I sought guidance by exploring existing palindrome checker code, which provided a step-by-step breakdown. 
+This resourceful approach significantly aided my understanding, enabling me to eventually create the palindrome checker.
 '''
