@@ -63,10 +63,10 @@ while True:
     print("\t 1 - Enter Sentence \n\t 2 - Display Sentences \n\t 3 - Palindrome Checker \n\t 4 - Exit")
     option = int(input())
     if option == 1:
-        print("---ADDING-----SENTENCE---")
+        print("---ADD--A--SENTENCE---")
         s.push()
     elif option == 2:
-        print("------DISPLAYING------")
+        print("------DISPLAY------")
         s.display()
     elif option == 3:
         print("---PALINDROME-----CHECKER---")
