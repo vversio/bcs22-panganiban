@@ -23,7 +23,7 @@ class Stack:
         else:
             print("Popped Element is  : ", self.top.data)
             print("------------------------------------")
-            self.top = None if self.top.next is None else self.top.next
+            self.top = self.top.next
 
     def palindrome_checker(self):
         self.display()
@@ -73,4 +73,6 @@ while True:
         s.palindrome_checker()
     elif option == 4:
         break
+'''
 
+'''
